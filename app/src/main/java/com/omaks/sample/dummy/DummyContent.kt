@@ -1,5 +1,7 @@
 package com.omaks.sample.dummy
 
+import com.omaks.sample.Item
+
 /**
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
@@ -52,7 +54,13 @@ object DummyContent {
     /**
      * A dummy item representing a piece of content.
      */
-    data class DummyItem(val id: String, val content: String, val details: String) {
+    data class DummyItem(val id: String, val content: String, val details: String) : Item {
+        override fun getItemId(): String = id
+
+        override fun getItemContent(): String = content
+
+        override fun getItemDetails(): String = details
+
         override fun toString(): String = content
     }
 }

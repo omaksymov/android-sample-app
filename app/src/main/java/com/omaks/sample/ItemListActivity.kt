@@ -14,6 +14,7 @@ import com.omaks.sample.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list_content.view.*
 import kotlinx.android.synthetic.main.item_list.*
+import javax.inject.Inject
 
 /**
  * An activity representing a list of Items. This activity
@@ -31,9 +32,14 @@ class ItemListActivity : AppCompatActivity() {
      */
     private var isTwoPane: Boolean = false
 
+    @Inject
+    lateinit var repository: ItemsRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_list)
+
+        DaggerAppComponent.create().inject(this)
 
         setSupportActionBar(toolbar)
         toolbar.title = title
@@ -57,14 +63,14 @@ class ItemListActivity : AppCompatActivity() {
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(
             this,
-            DummyContent.ITEMS,
+            repository.getAllItems(),
             isTwoPane
         )
     }
 
     class SimpleItemRecyclerViewAdapter(
         private val parentActivity: ItemListActivity,
-        private val values: List<DummyContent.DummyItem>,
+        private val values: List<Item>,
         private val twoPane: Boolean
     ) :
         RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
@@ -101,8 +107,8 @@ class ItemListActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = values[position]
-            holder.idView.text = item.id
-            holder.contentView.text = item.content
+            holder.idView.text = item.getItemId()
+            holder.contentView.text = item.getItemContent()
 
             with(holder.itemView) {
                 tag = item
