@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.omaks.sample.dummy.DummyRepository
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import kotlinx.android.synthetic.main.item_detail.view.*
 import javax.inject.Inject
@@ -20,7 +21,7 @@ class ItemDetailFragment : Fragment() {
     private var item: Item? = null
 
     @Inject
-    lateinit var repository: ItemsRepository
+    lateinit var repository: DummyRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

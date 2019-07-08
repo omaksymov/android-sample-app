@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.omaks.sample.dummy.DummyContent
+import com.omaks.sample.dummy.DummyRepository
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list_content.view.*
 import kotlinx.android.synthetic.main.item_list.*
@@ -33,7 +34,7 @@ class ItemListActivity : AppCompatActivity() {
     private var isTwoPane: Boolean = false
 
     @Inject
-    lateinit var repository: ItemsRepository
+    lateinit var repository: DummyRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
